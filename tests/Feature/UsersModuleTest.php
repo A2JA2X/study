@@ -8,13 +8,27 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class UsersModuleTest extends TestCase
 {
-    /**
-     * A basic test example.
-     *
-     * @return void
-     */
-    public function testExample()
+    /** @test */
+    function it_loads_the_users_list_page()
     {
-        $this->assertTrue(true);
+        $this->get('/users')
+            ->assertStatus(200)
+            ->assertSee('Users');
+    }
+
+    /** @test */
+    function it_loads_the_users_details_page()
+    {
+        $this->get('/users/5')
+            ->assertStatus(200)
+            ->assertSee('Details for user: 5');
+    }
+
+    /** @test */
+    function it_loads_the_new_users_page()
+    {
+        $this->get('/users/new')
+            ->assertStatus(200)
+            ->assertSee('Create new user');
     }
 }
