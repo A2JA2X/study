@@ -15,34 +15,13 @@ Route::get('/', function () {
     return 'Home';
 });
 
-Route::get('users', function (){
-    return 'Users';
-});
+Route::get('users', 'UserController@index');
 
-// ルーティングがかぶる場合の解決法１idは数字だけを受け付けるようにする
-//Route::get('users/{id}', function ($id){
-//   return "Details for user: {$id}";
-//})->where('id', '[0-9]+');
+Route::get('users/{id}', 'UserController@show')
+    ->where('id', '[0-9]+');
 
-// ルーティングがかぶる場合の解決法２順番を変える
-Route::get('users/new', function (){
-   return 'Create new user';
-});
+Route::get('users/new', 'UserController@new');
 
-Route::get('users/{id}', function ($id){
-   return "Details for user: {$id}";
-});
+Route::get('users/create', 'UserController@create');
 
-// 複数引数
-//Route::get('hello/{name}/{nickname}', function ($name, $nickname){
-//   return "Hi, {$name}. your nickname is: {$nickname}";
-//});
-
-// 複数引数条件付き
-Route::get('hello/{name}/{nickname?}', function ($name, $nickname = null){
-    if ($nickname) {
-        return "Hi, {$name}. your nickname is: {$nickname}";
-    } else {
-        return "Hi, {$name}. nickname is not defined!";
-    }
-});
+Route::get('hello/{name}/{nickname?}', 'WelcomeUserController');
