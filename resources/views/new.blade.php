@@ -5,12 +5,18 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>List Users - Studying Laravel</title>
+    <title>New User - Studying Laravel</title>
 </head>
 <body>
 <h1>{{ $title }}</h1>
 
 <hr>
-<p>New user</p>
+<form method="POST" action="{{ url('users/create') }}">
+    {{ csrf_field() }}
+    <button>Create user</button>
+</form>
+<p>
+    <a href="{{ route('users') }}">Home</a>
+</p>
 </body>
 </html>

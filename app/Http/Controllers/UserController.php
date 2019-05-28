@@ -31,7 +31,7 @@ class UserController extends Controller
         return view('new', compact('title'));
     }
 
-    public function create()
+    public function store()
     {
         $title = 'Create user';
         
