@@ -13,7 +13,7 @@
     <hr>
     <ul>
         @forelse ($users as $user)
-            <li>{{ $user }}</li>
+            <li>{{ $user->name }}, {{ $user->email }}</li>
         @empty
             <p>No users.</p>
         @endforelse
