@@ -68,10 +68,37 @@ class UsersModuleTest extends TestCase
     }
 
     /** @test */
-    function it_loads_the_create_users_page()
+    function it_creates_a_new_user()
     {
-        $this->get('/users/create')
-            ->assertStatus(200)
-            ->assertSee('Create user');
+        $this->post('/users/create', [
+            'name' => 'Marco',
+            'email' => 'Polo@test.test',
+            'password' => 'test12345678'
+        ])->assertRedirect(route('users'));
+
+        $this->assertCredentials([
+            'name' => 'Marco',
+            'email' => 'Polo@test.test',
+            'password' => 'test12345678'
+        ]);
+    }
+
+    /** @test */
+    function the_name_is_required()
+    {
+        $this->from('users/new')
+            ->post('/users/create', [
+                'name' => '',
+                'email' => 'Polo@test.test',
+                'password' => 'test12345678'
+            ])
+            ->assertRedirect(route('users.new'))
+            ->assertSessionHasErrors(['name' => 'Name is required!']);
+
+        $this->assertEquals(0, User::count());
+
+//        $this->assertDatabaseMissing('users', [
+//            'email' => 'Polo@test.test',
+//        ]);
     }
 }

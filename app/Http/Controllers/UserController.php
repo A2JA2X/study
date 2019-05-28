@@ -14,27 +14,38 @@ class UserController extends Controller
 
         $title = 'List of users';
 
-        return view('users', compact('title', 'users'));
+        return view('users.index', compact('title', 'users'));
     }
 
     public function show(User $user)
     {
         $title = 'User details';
 
-        return view('show', compact('user', 'title'));
+        return view('users.show', compact('user', 'title'));
     }
 
     public function new()
     {
         $title = 'New user';
 
-        return view('new', compact('title'));
+        return view('users.new', compact('title'));
     }
 
     public function store()
     {
-        $title = 'Create user';
-        
-        return view('create', compact('title'));
+        /** フォームから送信された情報の受け取り */
+        $data = request()->validate([
+            'name' => 'required'
+        ], [
+            'name.required' => 'Name is required!'
+        ]);
+
+        User::create([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => bcrypt($data['password'])
+        ]);
+
+        return redirect()->route('users');
     }
 }
