@@ -27,6 +27,11 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    public function profession()
+    {
+        return $this->belongsTo(Profession::class);
+    }
+
     public static function findByEmail($email)
     {
         return static::where(compact('email'))->first();
