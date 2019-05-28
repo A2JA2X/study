@@ -11,6 +11,10 @@
 <h1>{{ $title }}</h1>
 
 <hr>
-<p>Details for user: {{ $id }}</p>
+<p>Name: {{ $user->name }}</p>
+<p>Email: {{ $user->email }}</p>
+<p>
+    <a href="{{ route('users') }}">Home</a>
+</p>
 </body>
 </html>
