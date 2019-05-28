@@ -2,15 +2,29 @@
 
 namespace Tests\Feature;
 
+use App\User;
+use Illuminate\Support\Facades\DB;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class UsersModuleTest extends TestCase
 {
+    /** rollback after one test */
+    use RefreshDatabase;
+
     /** @test */
     function it_show_the_users_list()
     {
+        /** create new dummy user */
+        factory(User::class)->create([
+            'name' => 'Josh',
+        ]);
+
+        factory(User::class)->create([
+            'name' => 'Ellie',
+        ]);
+
         $this->get('/users')
             ->assertStatus(200)
             ->assertSee('List of users')
@@ -21,7 +35,7 @@ class UsersModuleTest extends TestCase
     /** @test */
     function it_shows_a_default_message_if_there_are_no_users()
     {
-        $this->get('/users?empty')
+        $this->get('/users')
             ->assertStatus(200)
             ->assertSee('No users.');
     }
