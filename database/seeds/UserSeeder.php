@@ -1,7 +1,9 @@
 <?php
 
+use App\Profession;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use App\User;
 
 class UserSeeder extends Seeder
 {
@@ -12,10 +14,20 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('users')->insert([
+
+//        $professions = DB::select('SELECT id FROM professions WHERE title = ? LIMIT 0,1', [
+//            'Back-end developer'
+//        ]);
+
+        $professionId = Profession::where('title', 'Back-end developer')->value('id');
+
+
+
+        User::create([
             'name'          => 'Josh',
             'email'         => 'Joshynelli@test.com',
-            'password'      => bcrypt('laravel')
+            'password'      => bcrypt('laravel'),
+            'profession_id' => $professionId,
         ]);
     }
 }
