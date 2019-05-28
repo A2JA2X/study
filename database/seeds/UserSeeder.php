@@ -29,5 +29,19 @@ class UserSeeder extends Seeder
             'password'      => bcrypt('laravel'),
             'profession_id' => $professionId,
         ]);
+
+        User::create([
+            'name'          => 'Ellie',
+            'email'         => 'Ellie@test.com',
+            'password'      => bcrypt('laravel'),
+            'profession_id' => $professionId,
+        ]);
+
+        User::create([
+            'name'          => 'Jon',
+            'email'         => 'Jon@test.com',
+            'password'      => bcrypt('laravel'),
+            'profession_id' => null,
+        ]);
     }
 }
