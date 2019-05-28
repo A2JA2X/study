@@ -18,8 +18,8 @@ Route::get('/', function () {
 Route::get('/users', 'UserController@index')
     ->name('users');
 
-Route::get('/users/{id}', 'UserController@show')
-    ->where('id', '[0-9]+')
+Route::get('/users/{user}', 'UserController@show')
+    ->where('user', '[0-9]+')
     ->name('users.show');
 
 Route::get('/users/new', 'UserController@new')
