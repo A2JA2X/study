@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return 'Home';
+    return view('welcome');
 });
 
 Route::get('/users', 'UserController@index')
