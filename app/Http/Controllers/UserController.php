@@ -21,7 +21,7 @@ class UserController extends Controller
     {
         $title = 'User details';
 
-        $user = User::find($id);
+        $user = User::findOrFail($id);
 
         return view('show', compact('user', 'title'));
     }
