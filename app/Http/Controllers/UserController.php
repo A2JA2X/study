@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
@@ -35,9 +36,13 @@ class UserController extends Controller
     {
         /** フォームから送信された情報の受け取り */
         $data = request()->validate([
-            'name' => 'required'
+            'name' => 'required',
+            'email' => ['required','email', 'unique:users,email'],
+            'password' => ['required', 'min:6'],
         ], [
-            'name.required' => 'Name is required!'
+            'name.required' => 'Name is required!',
+            'email.required' => 'Email is required!',
+            'password.required' => 'Password is required!',
         ]);
 
         User::create([
@@ -47,5 +52,30 @@ class UserController extends Controller
         ]);
 
         return redirect()->route('users');
+    }
+
+    public function edit(User $user)
+    {
+        return view('users.edit', ['user' => $user]);
+    }
+
+    public function update(User $user)
+    {
+        /** フォームから送信された情報の受け取り */
+        $data = request()->validate([
+            'name' => 'required',
+            'email' => ['required','email', Rule::unique('users')->ignore($user->id)],
+            'password' => [],
+        ]);
+
+        if ($data['password'] != null) {
+            $data['password'] = bcrypt($data['password']);
+        } else {
+            unset($data['password']);
+        }
+
+        $user->update($data);
+
+        return redirect()->route('users.show', ['user' => $user]);
     }
 }
