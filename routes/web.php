@@ -25,8 +25,13 @@ Route::get('/users/{user}', 'UserController@show')
 Route::get('/users/new', 'UserController@new')
     ->name('users.new');
 
-Route::post('/users/create', 'UserController@store')
-    ->name('users.create');
+Route::post('/users/create', 'UserController@store');
+
+Route::get('/users/{user}/edit', 'UserController@edit')
+    ->name('users.edit');
+
+Route::put('/users/{user}', 'UserController@update')
+    ->name('users.update');
 
 Route::get('/hello/{name}/{nickname?}', 'WelcomeUserController')
     ->name('hello');
