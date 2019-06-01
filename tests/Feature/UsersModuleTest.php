@@ -330,6 +330,19 @@ class UsersModuleTest extends TestCase
         ]);
     }
 
+    /** @test */
+    function it_deletes_a_user()
+    {
+        $user = factory(User::class)->create();
+
+        $this->delete("users/{$user->id}")
+            ->assertRedirect(route('users'));
+
+        $this->assertDatabaseMissing('users', [
+           'id' => $user->id
+        ]);
+    }
+
 //    /** @test */
 //    function the_password_must_be_greater_than_six_characters_when_updating_a_user()
 //    {

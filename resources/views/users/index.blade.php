@@ -6,11 +6,18 @@
     <h1>{{ $title }}</h1>
 
     <hr>
+
     <ul>
         @forelse ($users as $user)
             <li>
                 {{ $user->name }}, {{ $user->email }}
-                <a href="{{ route('users.show', ['id' => $user->id]) }}">Show details</a>
+                <a href="{{ route('users.show', $user) }}">Show details</a> |
+                <a href="{{ route('users.edit', $user) }}">Edit</a> |
+                <form action="{{ route('users.destroy', $user) }}" method="POST">
+                    {{ method_field('DELETE')  }}
+                    {{ csrf_field() }}
+                    <input type="submit" class="btn btn-danger" value="Delete">
+                </form>
             </li>
         @empty
             <p>No users.</p>
@@ -19,5 +26,7 @@
 @endsection
 
 @section('sidebar')
-    <h2>Side for users</h2>
+    <h4>
+        <a href="{{ route('users.new') }}">New user</a>
+    </h4>
 @endsection

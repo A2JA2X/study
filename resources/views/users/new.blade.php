@@ -7,7 +7,7 @@
 
     @if($errors->any())
         <div class="alert alert-danger">
-            <h2>Please fix errors</h2>
+            <h5>Please fix errors</h5>
         </div>
     @endif
     <form method="POST" action="{{ url('users/create') }}">
