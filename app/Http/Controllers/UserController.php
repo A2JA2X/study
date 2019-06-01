@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\User;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 
 class UserController extends Controller
@@ -77,5 +75,11 @@ class UserController extends Controller
         $user->update($data);
 
         return redirect()->route('users.show', ['user' => $user]);
+    }
+
+    public function destroy(User $user)
+    {
+        $user->delete();
+        return redirect()->route('users');
     }
 }

@@ -35,3 +35,6 @@ Route::put('/users/{user}', 'UserController@update')
 
 Route::get('/hello/{name}/{nickname?}', 'WelcomeUserController')
     ->name('hello');
+
+Route::delete('/users/{user}', 'UserController@destroy')
+    ->name('users.destroy');
