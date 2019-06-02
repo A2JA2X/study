@@ -1,36 +1,56 @@
 @extends('layout')
 
 @section('content')
-    <h1>{{ $title }}</h1>
-
-    <hr>
-
-    @if($errors->any())
-        <div class="alert alert-danger">
-            <h5>Please fix errors</h5>
+    <div class="card">
+        <div class="card-header">
+            <h1>{{ $title }}</h1>
         </div>
-    @endif
-    <form method="POST" action="{{ url('users/create') }}">
-        {{ csrf_field() }}
+        <div class="card-body">
+            @if($errors->any())
+                <div class="alert alert-danger" role="alert">
+                    Please fix errors
+                </div>
+            @endif
+            <form method="POST" action="{{ url('users/create') }}" class="mb-3">
+                {{ csrf_field() }}
 
-        <label for="name">Name:</label>
-        <input type="text" name="name" id="name" value="{{ old('name') }}">
-        @if ($errors->has('name'))
-            <p>{{ $errors->first('name') }}</p>
-        @endif
+                <div class="form-group">
+                    <label for="InputName">Name</label>
+                    @if ($errors->has('name'))
+                        <input type="text" class="form-control is-invalid" id="InputName" name="name" placeholder="Enter your name" value="{{ old('name') }}">
+                        <p class="text-danger">{{ $errors->first('name') }}</p>
+                    @else
+                        <input type="text" class="form-control" id="InputName" name="name" placeholder="Enter your name" value="{{ old('name') }}">
+                    @endif
+                </div>
 
-        <label for="email">Email:</label>
-        <input type="email" name="email" id="email" value="{{ old('email') }}">
-        @if ($errors->has('email'))
-            <p>{{ $errors->first('email') }}</p>
-        @endif
+                <div class="form-group">
+                    <label for="InputEmail">Email address</label>
+                    @if ($errors->has('email'))
+                        <input type="email" class="form-control is-invalid" id="InputEmail" name="email" placeholder="Enter your email" value="{{ old('email') }}">
+                        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                        <p class="text-danger">{{ $errors->first('email') }}</p>
+                    @else
+                        <input type="email" class="form-control" id="InputEmail" name="email" placeholder="Enter your email" value="{{ old('email') }}">
+                        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                    @endif
+                </div>
 
-        <label for="password">Password:</label>
-        <input type="password" name="password" id="password">
+                <div class="form-group">
+                    <label for="InputPass">Password</label>
+                    @if ($errors->has('password'))
+                        <input type="password" class="form-control is-invalid" id="InputPass" name="password" placeholder="Password">
+                        <p class="text-danger">{{ $errors->first('password') }}</p>
+                    @else
+                        <input type="password" class="form-control" id="InputPass" name="password" placeholder="Password">
+                    @endif
+                </div>
 
-        <input type="submit" class="btn btn-primary" value="Create">
-    </form>
-    <p>
-        <a href="{{ route('users') }}">Home</a>
-    </p>
+                <input type="submit" class="btn btn-primary" value="Create">
+            </form>
+            <p>
+                <a href="{{ route('users') }}">Return to users</a>
+            </p>
+        </div>
+    </div>
 @endsection
